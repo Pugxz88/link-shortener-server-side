@@ -44,8 +44,7 @@ app.get("/urls", async (req, res, next) => {
 });
 
 app.post("/api/shorten", async (req, res, next) => {
-  if (req.body.url) {
-//do something    
+  if (req.body.url) {  
     try {
       let url = await URL.findOne({ originalUrl: req.body.url }).exec();
 
