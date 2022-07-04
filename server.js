@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require("cors");
+import cors from cors 
 const mongoose = require("mongoose");
 const axios = require("axios");
 require("dotenv").config();
