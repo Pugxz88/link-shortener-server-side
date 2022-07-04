@@ -26,10 +26,9 @@ const whiteList = "https://www.onslink.xyz/tools/link_shortener";
 
 app = express();
 app.use(
-  cors({
-    origin: whiteList,
-  })
-); // origin: * --> origin: mywebsite.com
+  cors(//{
+    //origin: whiteList,}
+    )); // origin: * --> origin: mywebsite.com
 app.use(express.json());
 
 app.get("/", (req, res) => {
