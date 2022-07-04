@@ -1,5 +1,5 @@
 const express = require("express");
-import cors from cors 
+const cors = require("cors");
 const mongoose = require("mongoose");
 const axios = require("axios");
 require("dotenv").config();
@@ -28,8 +28,8 @@ app = express();
 app.use(
   cors({
     origin: whiteList,
-  }
-    )); 
+  })
+  ); 
 app.use(express.json());
 
 app.get("/", (req, res) => {
