@@ -6,7 +6,7 @@ require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
 
 // HEX
-let nanoid = customAlphabet("1234567890abcdef", 7);
+let nanoid = customAlphabet("1234567890abcdef", 8);
 
 mongoose.connect(
   process.env.MONGO_URI,
@@ -22,13 +22,14 @@ const URL = require("./models/Urls");
 
 const PORT = process.env.PORT || 3000;
 
-//const whiteList = "https://www.onslink.xyz/tools/link_shortener";
+const whiteList = "https://www.onslink.xyz/tools/link_shortener";
 
 app = express();
 app.use(
-  cors(//{
-    //origin: whiteList,}
-    )); // origin: * --> origin: mywebsite.com
+  cors({
+    origin: whiteList,
+  }
+    )); 
 app.use(express.json());
 
 app.get("/", (req, res) => {
