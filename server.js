@@ -22,7 +22,7 @@ const URL = require("./models/Urls");
 
 const PORT = process.env.PORT || 3000;
 
-const whiteList = "https://onslink.xyz/tools/link_shortener.html";
+const whiteList = "https://www.onslink.xyz/tools/link_shortener";
 
 app = express();
 app.use(
