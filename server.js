@@ -32,7 +32,7 @@ app.use(
   ); 
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/urls", (req, res) => {
   res.json({
     message: "Home page",
   });
