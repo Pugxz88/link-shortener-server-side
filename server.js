@@ -18,7 +18,7 @@ mongoose.connect(
 );
 
 // Import URL model
-const URL = require("./models/Urls");
+const URL = require("./models/Urls.js");
 
 const PORT = process.env.PORT || 3000;
 
@@ -32,7 +32,7 @@ app.use(
   ); 
 app.use(express.json());
 
-app.get("/urls", (req, res) => {
+app.get("/", (req, res) => {
   res.json({
     message: "Home page",
   });
