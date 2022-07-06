@@ -21,14 +21,13 @@ const URL = require("./models/Urls");
 
 const PORT = process.env.PORT || 15205;
 
-const whiteList = "https://onslink-shortener.netlify.app";
 
 app = express();
 app.use(
   cors({
-    origin: whiteList,
+    origin: "https://onslink-shortener.netlify.app",
   })
-  ); 
+  ) 
 app.use(express.json());
 
 app.get("/", (req, res) => {
