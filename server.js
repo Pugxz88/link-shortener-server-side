@@ -17,7 +17,7 @@ mongoose.connect(
 );
 
 // Import URL model
-const URL = require("./models/Urls.js");
+const URL = require("./models/Urls");
 
 const PORT = process.env.PORT || 3000;
 
