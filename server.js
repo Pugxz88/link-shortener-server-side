@@ -1,9 +1,10 @@
 const express = require("express");
+const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const axios = require("axios");
 require("dotenv").config();
-import { customAlphabet } from 'nanoid'
+const { CustomAlphabet, customAlphabet } = require("nanoid");
 
 let nanoid = customAlphabet('1234567890abcdef', 8);
 
