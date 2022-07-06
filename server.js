@@ -3,9 +3,9 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const axios = require("axios");
 require("dotenv").config();
-const { CustomAlphabet, customAlphabet } = require("nanoid");
-// HEX
-let nanoid = customAlphabet("1234567890abcdef", 8);
+import { customAlphabet } from 'nanoid'
+
+let nanoid = customAlphabet('1234567890abcdef', 8);
 
 mongoose.connect(
   process.env.MONGO_URI,
