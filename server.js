@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const axios = require("axios");
 require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
-c.Header("Access-Control-Allow-Origin", "https://www.onslink.xyz/tools/link_shortener")
 // HEX
 let nanoid = customAlphabet("1234567890abcdef", 8);
 
@@ -22,7 +21,7 @@ const URL = require("./models/Urls.js");
 
 const PORT = process.env.PORT || 3000;
 
-const whiteList = "https://www.onslink.xyz/tools/link_shortener";
+const whiteList = "https://onslink-shortener.netlify.app";
 
 app = express();
 app.use(
