@@ -5,7 +5,7 @@ const axios = require("axios");
 require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
 
-let nanoid = customAlphabet('1234567890abcdef', 8);
+let nanoid = customAlphabet("1234567890abcdef", 8);
 
 mongoose.connect(
   process.env.MONGO_URI,
@@ -25,7 +25,7 @@ const PORT = process.env.PORT || 15205;
 app = express();
 app.use(
   cors({
-    origin: "https://onslink-shortener.netlify.app",
+    origin: "*",
   })
   ) 
 app.use(express.json());
