@@ -5,7 +5,7 @@ const axios = require("axios");
 require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
 
-let nanoid = customAlphabet("1234567890abcdef", 8);
+let nanoid = customAlphabet('1234567890qwerty', 7)
 
 mongoose.connect(
   process.env.MONGO_URI,
@@ -18,14 +18,13 @@ mongoose.connect(
 
 // Import URL model
 const URL = require("./models/Urls");
-
 const PORT = process.env.PORT || 15205;
-
+const whiteList = "https://onslink.xyz/tools/link_shortener";
 
 app = express();
 app.use(
   cors({
-    origin: "https://onslink.xyz/tools/link_shortener",
+    origin: whiteList,
   })
   ) 
 app.use(express.json());
