@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 15205;
 app = express();
 app.use(
   cors({
-    origin: "https://onslink.xyz/tools/link_shortener",
+    origin: "https://onslink-shortener.netlify.app/",
   })
   ) 
 app.use(express.json());
