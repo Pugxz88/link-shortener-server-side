@@ -19,12 +19,12 @@ mongoose.connect(
 // Import URL model
 const URL = require("./models/Urls");
 const PORT = process.env.PORT || 15205;
-
+const whiteList = "https://onslink-shortener.netlify.app";
 
 app = express();
 app.use(
   cors({
-    origin: "https://onslink-shortener.netlify.app/",
+    origin: whiteList,
   })
   ) 
 app.use(express.json());
