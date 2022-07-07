@@ -16,7 +16,6 @@ mongoose.connect(
   () => console.log("DB is connected...")
 );
 
-// Import URL model
 const URL = require("./models/Urls");
 const PORT = process.env.PORT || 15205;
 const whiteList = "https://onslink-shortener.netlify.app";
@@ -34,7 +33,7 @@ app.get("/", (req, res) => {
     message: "Home page",
   });
 });
-//route to get whats insde url
+
 app.get("/urls", async (req, res, next) => {
   let urls = await URL.find({}).exec();
   res.json(urls);
@@ -48,7 +47,7 @@ app.post("/api/shorten", async (req, res, next) => {
       if (url) {
         res.json({ short: `${process.env.URL}/${url.slug}`, status: 200 });
       } else {
-        // make a request with Axios
+       
         const response = await axios.get(req.body.url.toString(), {
           validateStatus: (status) => {
             return status < 500;
