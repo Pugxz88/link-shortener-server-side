@@ -5,7 +5,8 @@ const axios = require("axios");
 require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
 
-let nanoid = customAlphabet("1234567890abcdef", 8)
+
+let nanoid = customAlphabet("1234567890abcdef", 8);
 
 mongoose.connect(
   process.env.MONGO_URI,
@@ -16,8 +17,11 @@ mongoose.connect(
   () => console.log("DB is connected...")
 );
 
+
 const URL = require("./models/Urls");
+
 const PORT = process.env.PORT || 15205;
+
 const whiteList = "https://onshortlink.netlify.app";
 
 app = express();
@@ -25,7 +29,7 @@ app.use(
   cors({
     origin: whiteList,
   })
-  ) 
+); 
 app.use(express.json());
 
 app.get("/", (req, res) => {
