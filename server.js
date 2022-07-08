@@ -18,7 +18,7 @@ mongoose.connect(
 
 const URL = require("./models/Urls");
 const PORT = process.env.PORT || 15205;
-const whiteList = "https://onslink.xyz/tools/link_shortener";
+const whiteList = "https://onshortlink.netlify.app";
 
 app = express();
 app.use(
