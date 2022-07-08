@@ -5,7 +5,7 @@ const axios = require("axios");
 require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
 
-let nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 4)
+let nanoid = customAlphabet("1234567890abcdef", 8)
 
 mongoose.connect(
   process.env.MONGO_URI,
