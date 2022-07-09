@@ -6,7 +6,7 @@ require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
 
 // HEX
-let nanoid = customAlphabet("1234567890abcdef", 7);
+let nanoid = customAlphabet("1234567890abcdef", 8);
 
 mongoose.connect(
   process.env.MONGO_URI,
@@ -18,7 +18,7 @@ mongoose.connect(
 );
 
 // Import URL model
-const URL = require("./models/Urls");
+const URL = require("./models/Urls.js");
 
 const PORT = process.env.PORT || 15205;
 
