@@ -18,7 +18,7 @@ mongoose.connect(
 );
 
 // Import URL model
-const URL = require("./models/Urls.js");
+const URL = require("./models/Urls");
 
 const PORT = process.env.PORT || 15205;
 
@@ -29,7 +29,8 @@ app.use(
   cors({
     origin: whiteList,
   })
-); // origin: * --> origin: mywebsite.com
+);
+ // origin: * --> origin: mywebsite.com
 app.use(express.json());
 
 app.get("/", (req, res) => {
