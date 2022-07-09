@@ -22,7 +22,7 @@ const URL = require("./models/Urls");
 
 const PORT = process.env.PORT || 15205;
 
-const whiteList = "https://onshortlink.netlify.app";
+const whiteList = "https://lynko.netlify.app";
 
 app = express();
 app.use(
