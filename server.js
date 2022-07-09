@@ -6,7 +6,7 @@ require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
 
 // HEX
-let nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 3);
+let nanoid = customAlphabet("1234567890abcdef", 7);
 
 mongoose.connect(
   process.env.MONGO_URI,
@@ -29,23 +29,22 @@ app.use(
   cors({
     origin: whiteList,
   })
-);
- // origin: * --> origin: mywebsite.com
+); // origin: * --> origin: mywebsite.com
 app.use(express.json());
 
-app.get("*", (req, res) => {
+app.get("/", (req, res) => {
   res.json({
     message: "Home page",
   });
 });
-
+//route to get whats insde url
 app.get("/urls", async (req, res, next) => {
   let urls = await URL.find({}).exec();
   res.json(urls);
 });
 
 app.post("/api/shorten", async (req, res, next) => {
-  if (req.body.url) {
+  if (req.body.url) {  
     try {
       let url = await URL.findOne({ originalUrl: req.body.url }).exec();
 
