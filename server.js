@@ -49,7 +49,7 @@ app.post("/api/shortlink", async (req, res, next) => {
       let url = await URL.findOne({ originalUrl: req.body.url }).exec();
 
       if (url) {
-        res.json({ short: `${process.env.URL}/${url.slug}`, status: 200 });
+        res.json(url); //({ short: `${process.env.URL}/${url.slug}`, status: 200 });
       } else {
         // make a request with Axios
         const response = await axios.get(req.body.url.toString(), {
@@ -59,18 +59,23 @@ app.post("/api/shortlink", async (req, res, next) => {
         });
 
         if (response.status != 404) {
-          let newUrl;
-          while (true) {
-            let slug = nanoid();
-            let checkedSlug = await URL.findOne({ slug: slug }).exec();
-            if (!checkedSlug) {
-              newUrl = await URL.create({
-                originalUrl: req.body.url,
-                slug: slug,
-              });
-              break;
-            }
-          }
+          let slug = nanoid();
+          let newUrl = await URL.create({
+            originalUrl: req.body.url,
+            slug: slug,
+          });
+         // let newUrl;
+         // while (true) {
+          //  let slug = nanoid();
+           // let checkedSlug = await URL.findOne({ slug: slug }).exec();
+          //  if (!checkedSlug) {
+          //    newUrl = await URL.create({
+          //      originalUrl: req.body.url,
+           //     slug: slug,
+           //   });
+           //   break;
+          //  }
+         // }
 
           res.json({
             short: `${process.env.URL}/${newUrl.slug}`,
