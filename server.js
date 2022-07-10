@@ -49,7 +49,7 @@ app.post("/api/shortlink", async (req, res, next) => {
       let url = await URL.findOne({ originalUrl: req.body.url }).exec();
 
       if (url) {
-        res.json(url); //({ short: `${process.env.URL}/${url.slug}`, status: 200 });
+        res.json({ short: `${process.env.URL}/${url.slug}`, status: 200 });
       } else {
         // make a request with Axios
         const response = await axios.get(req.body.url.toString(), {
