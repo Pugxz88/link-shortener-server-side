@@ -6,7 +6,7 @@ require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
 
 // HEX
-let nanoid = customAlphabet("1234567890abcdef", 8);
+let nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 4);
 
 mongoose.connect(
   process.env.MONGO_URI,
@@ -43,7 +43,7 @@ app.get("/urls", async (req, res, next) => {
   res.json(urls);
 });
 
-app.post("/api/shorten", async (req, res, next) => {
+app.post("/api/shortlink", async (req, res, next) => {
   if (req.body.url) {  
     try {
       let url = await URL.findOne({ originalUrl: req.body.url }).exec();
