@@ -54,7 +54,7 @@ app.post("/api/shorten", async (req, res, next) => {
         // make a request with Axios
         const response = await axios.get(req.body.url.toString(), {
           validateStatus: (status) => {
-            return status <= 500;
+            return status < 500;
           },
         });
 
