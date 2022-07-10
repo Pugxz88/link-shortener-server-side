@@ -59,23 +59,18 @@ app.post("/api/shortlink", async (req, res, next) => {
         });
 
         if (response.status != 404) {
-          let slug = nanoid();
-          let newUrl = await URL.create({
-            originalUrl: req.body.url,
-            slug: slug,
-          });
-         // let newUrl;
-         // while (true) {
-          //  let slug = nanoid();
-           // let checkedSlug = await URL.findOne({ slug: slug }).exec();
-          //  if (!checkedSlug) {
-          //    newUrl = await URL.create({
-          //      originalUrl: req.body.url,
-           //     slug: slug,
-           //   });
-           //   break;
-          //  }
-         // }
+          let newUrl;
+          while (true) {
+            let slug = nanoid();
+            let checkedSlug = await URL.findOne({ slug: slug }).exec();
+            if (!checkedSlug) {
+              newUrl = await URL.create({
+                originalUrl: req.body.url,
+                slug: slug,
+              });
+              break;
+            }
+          }
 
           res.json({
             short: `${process.env.URL}/${newUrl.slug}`,
