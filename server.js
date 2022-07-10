@@ -6,7 +6,7 @@ require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
 
 // HEX
-let nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 8);
+let nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 4);
 
 mongoose.connect(
   process.env.MONGO_URI,
