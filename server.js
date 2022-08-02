@@ -5,7 +5,10 @@ const axios = require("axios");
 require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
 
-let nanoid = customAlphabet('1234567890qwerty', 7)
+let nanoid = customAlphabet(
+  "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  4
+);
 
 mongoose.connect(
   process.env.MONGO_URI,
@@ -18,14 +21,14 @@ mongoose.connect(
 
 const URL = require("./models/Urls");
 const PORT = process.env.PORT || 15205;
-const whiteList = "https://onshortlink.netlify.app";
+const whiteList = "https://lynko.netlify.app";
 
 app = express();
 app.use(
   cors({
     origin: whiteList,
   })
-  ) 
+);
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -39,15 +42,14 @@ app.get("/urls", async (req, res, next) => {
   res.json(urls);
 });
 
-app.post("/api/shorten", async (req, res, next) => {
-  if (req.body.url) {  
+app.post("/api/shortlink", async (req, res, next) => {
+  if (req.body.url) {
     try {
       let url = await URL.findOne({ originalUrl: req.body.url }).exec();
 
       if (url) {
         res.json({ short: `${process.env.URL}/${url.slug}`, status: 200 });
       } else {
-       
         const response = await axios.get(req.body.url.toString(), {
           validateStatus: (status) => {
             return status < 500;
