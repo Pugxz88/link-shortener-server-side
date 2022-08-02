@@ -5,8 +5,10 @@ const axios = require("axios");
 require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
 
-// HEX
-let nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ", 4);
+let nanoid = customAlphabet(
+  "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+  4
+);
 
 mongoose.connect(
   process.env.MONGO_URI,
@@ -21,7 +23,6 @@ mongoose.connect(
 const URL = require("./models/Urls");
 
 const PORT = process.env.PORT || 15205;
-
 const whiteList = "https://lynko.netlify.app";
 
 app = express();
