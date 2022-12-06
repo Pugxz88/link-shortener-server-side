@@ -19,7 +19,7 @@ mongoose.connect(
   () => console.log("DB is connected...")
 );
 
-// Import URL model
+
 const URL = require("./models/Urls");
 
 const PORT = process.env.PORT || 15205;
@@ -30,11 +30,7 @@ app.use(
   cors({
     origin: whiteList,
   })
-<<<<<<< HEAD
-); // origin: * --> origin: mywebsite.com
-=======
-);
->>>>>>> 85c6e2151a015575ff4a9912d7edaf6d02f57fb7
+); 
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -42,28 +38,21 @@ app.get("/", (req, res) => {
     message: "Home page",
   });
 });
-//route to get whats insde url
+
 app.get("/urls", async (req, res, next) => {
   let urls = await URL.find({}).exec();
   res.json(urls);
 });
 
 app.post("/api/shortlink", async (req, res, next) => {
-<<<<<<< HEAD
   if (req.body.url) {  
-=======
-  if (req.body.url) {
->>>>>>> 85c6e2151a015575ff4a9912d7edaf6d02f57fb7
     try {
       let url = await URL.findOne({ originalUrl: req.body.url }).exec();
 
       if (url) {
         res.json({ short: `${process.env.URL}/${url.slug}`, status: 200 });
       } else {
-<<<<<<< HEAD
-        // make a request with Axios
-=======
->>>>>>> 85c6e2151a015575ff4a9912d7edaf6d02f57fb7
+       
         const response = await axios.get(req.body.url.toString(), {
           validateStatus: (status) => {
             return status < 500;
