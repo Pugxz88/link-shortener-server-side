@@ -30,7 +30,7 @@ app = express();
 app.use(
   cors({
     origin: whiteList,
-  })
+  }) 
 ); // origin: * --> origin: mywebsite.com
 app.use(express.json());
 
