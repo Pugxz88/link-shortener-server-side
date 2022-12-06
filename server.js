@@ -45,7 +45,7 @@ app.get("/urls", async (req, res, next) => {
   res.json(urls);
 });
 
-app.post("/api/shortlink", async (req, res, next) => {
+app.post("/api/shorturl", async (req, res, next) => {
   if (req.body.url) {  
     try {
       let url = await URL.findOne({ originalUrl: req.body.url }).exec();
