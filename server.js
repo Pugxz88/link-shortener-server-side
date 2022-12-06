@@ -5,6 +5,7 @@ const axios = require("axios");
 require("dotenv").config();
 const { CustomAlphabet, customAlphabet } = require("nanoid");
 
+// HEX
 let nanoid = customAlphabet(
   "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
   4
@@ -19,7 +20,7 @@ mongoose.connect(
   () => console.log("DB is connected...")
 );
 
-
+// Import URL model
 const URL = require("./models/Urls");
 
 const PORT = process.env.PORT || 15205;
@@ -30,7 +31,7 @@ app.use(
   cors({
     origin: whiteList,
   })
-); 
+); // origin: * --> origin: mywebsite.com
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -52,7 +53,7 @@ app.post("/api/shortlink", async (req, res, next) => {
       if (url) {
         res.json({ short: `${process.env.URL}/${url.slug}`, status: 200 });
       } else {
-       
+        // make a request with Axios
         const response = await axios.get(req.body.url.toString(), {
           validateStatus: (status) => {
             return status < 500;
