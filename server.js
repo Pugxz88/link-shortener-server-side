@@ -1,9 +1,9 @@
-const express = require("express");
-const cors = require("cors");
-const mongoose = require("mongoose");
-const axios = require("axios");
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import axios from "axios";
 require("dotenv").config();
-const { CustomAlphabet, customAlphabet } = require("nanoid");
+import {CustomAlphabet, customAlphabet} from "nanoid";
 
 // HEX
 let nanoid = customAlphabet(
@@ -21,7 +21,7 @@ mongoose.connect(
 );
 
 // Import URL model
-const URL = require("./models/Urls");
+import URL from "./models/Urls";
 
 const PORT = process.env.PORT || 15205;
 const whiteList = "https://onslink.xyz/tools/link_shortener";
@@ -45,30 +45,28 @@ app.get("/urls", async (req, res, next) => {
   res.json(urls);
 });
 
-app.post("/api/shorturl", async (req, res, next) => {
-  if (req.body.url) {  
+app.post("/api/shorturl", async ({body}, res, next) => {
+  if (body.url) {  
     try {
-      let url = await URL.findOne({ originalUrl: req.body.url }).exec();
+      let url = await URL.findOne({ originalUrl: body.url }).exec();
 
       if (url) {
         res.json({ short: `${process.env.URL}/${url.slug}`, status: 200 });
       } else {
         // make a request with Axios
-        const response = await axios.get(req.body.url.toString(), {
-          validateStatus: (status) => {
-            return status < 500;
-          },
+        const response = await axios.get(body.url.toString(), {
+          validateStatus: status => status < 500,
         });
 
         if (response.status != 404) {
           let newUrl;
           while (true) {
             let slug = nanoid();
-            let checkedSlug = await URL.findOne({ slug: slug }).exec();
+            let checkedSlug = await URL.findOne({ slug }).exec();
             if (!checkedSlug) {
               newUrl = await URL.create({
-                originalUrl: req.body.url,
-                slug: slug,
+                originalUrl: body.url,
+                slug,
               });
               break;
             }
@@ -95,9 +93,9 @@ app.post("/api/shorturl", async (req, res, next) => {
   }
 });
 
-app.get("/:slug", async (req, res, next) => {
+app.get("/:slug", async ({params}, res, next) => {
   try {
-    let url = await URL.findOne({ slug: req.params.slug }).exec();
+    let url = await URL.findOne({ slug: params.slug }).exec();
 
     if (url) {
       res.status(301);
@@ -110,19 +108,19 @@ app.get("/:slug", async (req, res, next) => {
   }
 });
 
-function notFound(req, res, next) {
+function notFound({originalUrl}, res, next) {
   res.status(404);
-  const error = new Error("Not found - " + req.originalUrl);
+  const error = new Error(`Not found - ${originalUrl}`);
   next(error);
 }
 
-function errorHandler(err, req, res, next) {
+function errorHandler({message, stack}, req, res, next) {
   res.status(res.statusCode || 500);
   res.json({
-    message: err.message,
+    message,
     error: {
       status: res.statusCode,
-      stack: process.env.ENV === "development" ? err.stack : undefined,
+      stack: process.env.ENV === "development" ? stack : undefined,
     },
   });
 }
