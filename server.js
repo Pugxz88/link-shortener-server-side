@@ -24,7 +24,7 @@ mongoose.connect(
 import URL from "./models/Urls";
 
 const PORT = process.env.PORT || 15205;
-const whiteList = "https://onslink.xyz/tools/link_shortener";
+const whiteList = "https://onslink.xyz";
 
 app = express();
 app.use(
