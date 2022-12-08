@@ -31,7 +31,7 @@ app.use(
   cors({
     origin: whiteList,
   }) 
-); // origin: * --> origin: mywebsite.com
+);// origin: * --> origin: mywebsite.com
 app.use(express.json());
 
 app.get("/", (req, res) => {
