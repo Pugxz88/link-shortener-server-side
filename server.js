@@ -1,9 +1,9 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-import axios from "axios";
+const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
+const axios = require("axios");
 require("dotenv").config();
-import {CustomAlphabet, customAlphabet} from "nanoid";
+const { CustomAlphabet, customAlphabet } = require("nanoid");
 
 // HEX
 let nanoid = customAlphabet(
@@ -21,7 +21,7 @@ mongoose.connect(
 );
 
 // Import URL model
-import URL from "./models/Urls";
+const URL = require("./models/Urls");
 
 const PORT = process.env.PORT || 15205;
 const whiteList = "https://lynko.netlify.app";
@@ -45,28 +45,30 @@ app.get("/urls", async (req, res, next) => {
   res.json(urls);
 });
 
-app.post("/api/shorturl", async ({body}, res, next) => {
-  if (body.url) {  
+app.post("/api/shorturl", async (req, res, next) => {
+  if (req.body.url) {  
     try {
-      let url = await URL.findOne({ originalUrl: body.url }).exec();
+      let url = await URL.findOne({ originalUrl: req.body.url }).exec();
 
       if (url) {
         res.json({ short: `${process.env.URL}/${url.slug}`, status: 200 });
       } else {
         // make a request with Axios
-        const response = await axios.get(body.url.toString(), {
-          validateStatus: status => status < 500,
+        const response = await axios.get(req.body.url.toString(), {
+          validateStatus: (status) => {
+            return status < 500;
+          },
         });
 
         if (response.status != 404) {
           let newUrl;
           while (true) {
             let slug = nanoid();
-            let checkedSlug = await URL.findOne({ slug }).exec();
+            let checkedSlug = await URL.findOne({ slug: slug }).exec();
             if (!checkedSlug) {
               newUrl = await URL.create({
-                originalUrl: body.url,
-                slug,
+                originalUrl: req.body.url,
+                slug: slug,
               });
               break;
             }
@@ -93,9 +95,9 @@ app.post("/api/shorturl", async ({body}, res, next) => {
   }
 });
 
-app.get("/:slug", async ({params}, res, next) => {
+app.get("/:slug", async (req, res, next) => {
   try {
-    let url = await URL.findOne({ slug: params.slug }).exec();
+    let url = await URL.findOne({ slug: req.params.slug }).exec();
 
     if (url) {
       res.status(301);
@@ -108,19 +110,19 @@ app.get("/:slug", async ({params}, res, next) => {
   }
 });
 
-function notFound({originalUrl}, res, next) {
+function notFound(req, res, next) {
   res.status(404);
-  const error = new Error(`Not found - ${originalUrl}`);
+  const error = new Error("Not found - " + req.originalUrl);
   next(error);
 }
 
-function errorHandler({message, stack}, req, res, next) {
+function errorHandler(err, req, res, next) {
   res.status(res.statusCode || 500);
   res.json({
-    message,
+    message: err.message,
     error: {
       status: res.statusCode,
-      stack: process.env.ENV === "development" ? stack : undefined,
+      stack: process.env.ENV === "development" ? err.stack : undefined,
     },
   });
 }
