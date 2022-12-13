@@ -23,7 +23,7 @@ mongoose.connect(
 // Import URL model
 const URL = require("./models/Urls");
 
-const PORT = process.env.PORT || 15205;
+const PORT = process.env.PORT || 10000;
 const whiteList = "https://tiny-link.vercel.app";
 
 app = express();
