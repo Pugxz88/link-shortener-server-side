@@ -24,14 +24,13 @@ mongoose.connect(
 const URL = require("./models/Urls");
 
 const PORT = process.env.PORT || 10000;
-const whiteList = "https://tiny-link.vercel.app";
+const whiteList = "https://tiny-link.vercel.app"; // frontend website
 
 app = express();
 app.use(
-  cors({
-    origin: whiteList,
-  }) 
-);// origin: * --> origin: mywebsite.com
+  cors(
+    { origin: whiteList, }
+  ));// origin: * --> origin: anywebsite.com
 app.use(express.json());
 
 app.get("/", (req, res) => {
