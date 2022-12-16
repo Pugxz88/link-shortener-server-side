@@ -9,4 +9,14 @@ part 3 👉 https://www.youtube.com/watch?v=0FylYhacR9w
 
 Please Hit "Like" and "Subscribe"..
 
+### Alternative deployment ###
+# https://render.com
+select 'Web Service' 
+Environment: 'node'
+Buid Command: 'npm install'
+Start Command: 'node server.js'
+add your ENV files in 'Environment Variables'
+
+## Don't forget to "Star" 🥰
+
 Thank you
